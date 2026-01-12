@@ -1,0 +1,42 @@
+.dialog-container {
+  min-width: 300px;
+  max-width: 500px;
+}
+
+h2 {
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+mat-dialog-content {
+  padding: 1rem 0;
+  
+  p {
+    margin: 0.5rem 0;
+    color: #374151;
+    line-height: 1.5;
+  }
+  
+  strong {
+    color: #1f2937;
+    font-weight: 600;
+  }
+  
+  .warning {
+    color: #dc2626;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+}
+
+mat-dialog-actions {
+  margin-top: 1rem;
+  padding: 0;
+  gap: 0.5rem;
+  
+  button {
+    min-width: 80px;
+  }
+}

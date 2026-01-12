@@ -1,0 +1,39 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f8fafc;
+}
+
+/* Angular Material Snackbar Styles */
+.success-snackbar {
+  background-color: #10b981 !important;
+  color: #fff !important;
+}
+
+.error-snackbar {
+  background-color: #ef4444 !important;
+  color: #fff !important;
+}
+
+.info-snackbar {
+  background-color: #3b82f6 !important;
+  color: #fff !important;
+}
+
+::ng-deep .mat-mdc-snack-bar-container {
+  .mdc-snackbar__surface {
+    border-radius: 8px !important;
+  }
+  
+  .mdc-snackbar__label {
+    font-weight: 500;
+  }
+  
+  .mat-mdc-snack-bar-action {
+    color: #fff !important;
+    font-weight: 600;
+  }
+}

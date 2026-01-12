@@ -1,0 +1,20 @@
+<div class="shell">
+  <header class="topbar">
+    <div class="brand">
+      <a routerLink="/tasks">TaskIt Portal</a>
+    </div>
+    <nav class="nav">
+      <a routerLink="/tasks" *ngIf="user()">Tasks</a>
+      <a routerLink="/login" *ngIf="!user()">Login</a>
+      <a routerLink="/register" *ngIf="!user()">Register</a>
+      <button type="button" class="link" *ngIf="user()" (click)="logout()">Logout</button>
+    </nav>
+    <div class="user" *ngIf="user()">
+      {{ user()?.userName || user()?.email }}
+    </div>
+  </header>
+
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

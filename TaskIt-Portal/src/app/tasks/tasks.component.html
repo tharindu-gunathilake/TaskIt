@@ -1,0 +1,137 @@
+<div class="tasks-page">
+  <div class="header">
+    <h2>Tasks</h2>
+    <div class="actions">
+      <select
+        [(ngModel)]="statusFilter"
+        (ngModelChange)="onStatusFilterChange($event)"
+      >
+        <option *ngFor="let option of filterOptions" [ngValue]="option.value">
+          {{ option.label }}
+        </option>
+      </select>
+      <input
+        type="search"
+        placeholder="Search..."
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="onSearchChange($event)"
+      />
+      <button (click)="loadTasks()">Refresh</button>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <h3>{{ editingTaskId() ? 'Edit task' : 'New task' }}</h3>
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <label>
+          Name
+          <input type="text" formControlName="name" />
+        </label>
+
+        <label>
+          Description
+          <textarea formControlName="description" rows="3"></textarea>
+        </label>
+
+        <label>
+          Status
+          <select formControlName="status">
+            <option *ngFor="let option of statusOptions" [value]="option.value">{{ option.label }}</option>
+          </select>
+        </label>
+
+        <div class="form-actions">
+          <button type="submit" [disabled]="loading()">
+            {{ editingTaskId() ? 'Update' : 'Create' }}
+          </button>
+          <button type="button" (click)="resetForm()" [disabled]="loading()">Clear</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="card list-card">
+      <div class="list-header">
+        <span class="sortable" (click)="sortBy('Name')">
+          Name
+          <span class="sort-icon" *ngIf="isSortedBy('Name')">{{ getSortIcon('Name') }}</span>
+        </span>
+        <span class="sortable" (click)="sortBy('Description')">
+          Description
+          <span class="sort-icon" *ngIf="isSortedBy('Description')">{{ getSortIcon('Description') }}</span>
+        </span>
+        <span class="sortable" (click)="sortBy('Status')">
+          Status
+          <span class="sort-icon" *ngIf="isSortedBy('Status')">{{ getSortIcon('Status') }}</span>
+        </span>
+        <span>Actions</span>
+      </div>
+
+      <div *ngIf="loading()">Loading...</div>
+      <div *ngIf="!loading() && tasks().length === 0">No tasks found.</div>
+
+      <div class="task-row" *ngFor="let task of tasks()">
+        <div class="name">{{ task.name }}</div>
+        <div class="description">{{ task.description || '-' }}</div>
+        <div class="status">{{ getStatusLabel(task.status) }}</div>
+        <div class="row-actions">
+          <button type="button" (click)="startEdit(task)">Edit</button>
+          <button type="button" class="danger" (click)="delete(task)">Delete</button>
+        </div>
+      </div>
+
+      <div class="pagination" *ngIf="totalPages() > 0">
+        <div class="pagination-info">
+          Showing {{ pageRange().start }}-{{ pageRange().end }} of {{ pageRange().total }} tasks
+        </div>
+        <div class="pagination-controls">
+          <button 
+            type="button" 
+            class="pagination-btn"
+            (click)="goToFirstPage()"
+            [disabled]="currentPage() === 1"
+          >
+            First
+          </button>
+          <button 
+            type="button" 
+            class="pagination-btn"
+            (click)="goToPreviousPage()"
+            [disabled]="currentPage() === 1"
+          >
+            Previous
+          </button>
+          <div class="page-numbers">
+            <button
+              *ngFor="let page of getPageNumbers()"
+              type="button"
+              class="page-number"
+              [class.active]="page === currentPage()"
+              [class.ellipsis]="page === '...'"
+              [disabled]="page === '...'"
+              (click)="typeof page === 'number' && goToPage(page)"
+            >
+              {{ page }}
+            </button>
+          </div>
+          <button 
+            type="button" 
+            class="pagination-btn"
+            (click)="goToNextPage()"
+            [disabled]="currentPage() === totalPages()"
+          >
+            Next
+          </button>
+          <button 
+            type="button" 
+            class="pagination-btn"
+            (click)="goToLastPage()"
+            [disabled]="currentPage() === totalPages()"
+          >
+            Last
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
