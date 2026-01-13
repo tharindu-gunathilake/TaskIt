@@ -1,6 +1,9 @@
 {
   "name": "taskit-portal",
   "version": "0.0.0",
+  "private": true,
+  "packageManager": "npm@11.6.2",
+
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -8,6 +11,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
+
   "prettier": {
     "printWidth": 100,
     "singleQuote": true,
@@ -20,8 +24,7 @@
       }
     ]
   },
-  "private": true,
-  "packageManager": "npm@11.6.2",
+
   "dependencies": {
     "@angular/animations": "^21.0.8",
     "@angular/cdk": "^21.0.6",
@@ -35,6 +38,7 @@
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
+
   "devDependencies": {
     "@angular/build": "^21.0.5",
     "@angular/cli": "^21.0.5",
