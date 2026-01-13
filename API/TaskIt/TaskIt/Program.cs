@@ -44,7 +44,7 @@ builder.Services.AddCors(options =>
 var cs = builder.Configuration.GetConnectionString("TaskDb");
 
 builder.Services.AddDbContext<TaskItDbContext>(
-    options => options.UseMySql(cs, ServerVersion.AutoDetect(cs))
+    options => options.UseSqlServer(cs)
 );
 
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
